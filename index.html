@@ -1,0 +1,696 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tpsalms Blog | Faith & Inspiration</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        :root {
+            --primary: #2a5caa;
+            --secondary: #e6af2e;
+            --dark: #1a1a2e;
+            --light: #f8f9fa;
+            --gray: #6c757d;
+        }
+
+        body {
+            background-color: #f5f7fa;
+            color: #333;
+            line-height: 1.6;
+        }
+
+        /* Header & Navigation */
+        header {
+            background: linear-gradient(135deg, var(--dark), var(--primary));
+            color: white;
+            padding: 1.5rem 5%;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .header-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 1.8rem;
+            font-weight: 700;
+            text-decoration: none;
+            color: white;
+        }
+
+        .logo i {
+            color: var(--secondary);
+        }
+
+        nav ul {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+        }
+
+        nav a {
+            color: white;
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s;
+            font-size: 1.05rem;
+            cursor: pointer;
+        }
+
+        nav a:hover {
+            color: var(--secondary);
+        }
+
+        .mobile-menu-btn {
+            display: none;
+            background: none;
+            border: none;
+            color: white;
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+
+        /* Hero Section */
+        .hero {
+            background: linear-gradient(rgba(26, 26, 46, 0.85), rgba(42, 92, 170, 0.9)), url('https://images.unsplash.com/photo-1518837695005-2083093ee35b?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80');
+            background-size: cover;
+            background-position: center;
+            color: white;
+            text-align: center;
+            padding: 5rem 5%;
+            margin-bottom: 3rem;
+        }
+
+        .hero-content {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .hero h1 {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+        }
+
+        .hero p {
+            font-size: 1.2rem;
+            margin-bottom: 2rem;
+            opacity: 0.9;
+        }
+
+        .cta-button, .read-more {
+            display: inline-block;
+            background-color: var(--secondary);
+            color: var(--dark);
+            padding: 0.9rem 2.5rem;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: bold;
+            font-size: 1.1rem;
+            transition: all 0.3s ease;
+            border: 2px solid var(--secondary);
+            cursor: pointer;
+        }
+
+        .cta-button:hover, .read-more:hover {
+            background-color: transparent;
+            color: var(--secondary);
+        }
+
+        /* Main Content */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 5%;
+            display: grid;
+            grid-template-columns: 1fr 300px;
+            gap: 3rem;
+            margin-bottom: 4rem;
+        }
+
+        /* Blog Posts */
+        .blog-posts {
+            display: flex;
+            flex-direction: column;
+            gap: 2.5rem;
+        }
+
+        .blog-card {
+            background: white;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.08);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .blog-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 12px 25px rgba(0, 0, 0, 0.12);
+        }
+
+        .blog-image {
+            height: 250px;
+            width: 100%;
+            object-fit: cover;
+            cursor: pointer;
+            position: relative;
+        }
+
+        .blog-image::after {
+            content: '🔗 Click to Visit Partner';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: rgba(42, 92, 170, 0.85);
+            color: white;
+            padding: 8px;
+            text-align: center;
+            font-size: 0.9rem;
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+
+        .blog-image:hover::after {
+            opacity: 1;
+        }
+
+        .blog-content {
+            padding: 1.8rem;
+        }
+
+        .blog-meta {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 0.8rem;
+            color: var(--gray);
+            font-size: 0.9rem;
+        }
+
+        .blog-meta span {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .blog-title {
+            font-size: 1.6rem;
+            margin-bottom: 1rem;
+            color: var(--dark);
+        }
+
+        .blog-excerpt {
+            color: #555;
+            margin-bottom: 1.5rem;
+        }
+
+        .read-more {
+            padding: 0.7rem 1.5rem;
+            font-size: 1rem;
+        }
+
+        /* Sidebar */
+        .sidebar {
+            background: white;
+            border-radius: 12px;
+            padding: 2rem;
+            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.05);
+            height: fit-content;
+        }
+
+        .sidebar-widget {
+            margin-bottom: 2.5rem;
+        }
+
+        .sidebar-title {
+            font-size: 1.3rem;
+            color: var(--dark);
+            margin-bottom: 1.2rem;
+            padding-bottom: 0.7rem;
+            border-bottom: 3px solid var(--secondary);
+        }
+
+        .about-text {
+            color: #555;
+            margin-bottom: 1.5rem;
+        }
+
+        .contact-info {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .contact-item {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            color: #555;
+        }
+
+        .contact-item i {
+            color: var(--primary);
+            width: 20px;
+        }
+
+        .social-links {
+            display: flex;
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+
+        .social-icon {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            background: var(--primary);
+            color: white;
+            border-radius: 50%;
+            text-decoration: none;
+            transition: all 0.3s;
+        }
+
+        .social-icon:hover {
+            background: var(--secondary);
+            transform: scale(1.1);
+        }
+
+        /* Partner Links Section */
+        .partner-links {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .partner-link {
+            display: block;
+            background: #f1f7ff;
+            border-left: 4px solid var(--primary);
+            padding: 1rem;
+            border-radius: 4px;
+            text-decoration: none;
+            color: #333;
+            transition: all 0.3s;
+        }
+
+        .partner-link:hover {
+            background: #e2eeff;
+            transform: translateX(5px);
+        }
+
+        /* Footer */
+        footer {
+            background: var(--dark);
+            color: white;
+            padding: 3rem 5% 1.5rem;
+            text-align: center;
+        }
+
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 2rem;
+        }
+
+        .footer-logo {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--secondary);
+            text-decoration: none;
+        }
+
+        .footer-links {
+            display: flex;
+            gap: 2rem;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .footer-links a {
+            color: #ccc;
+            text-decoration: none;
+            transition: color 0.3s;
+            cursor: pointer;
+        }
+
+        .footer-links a:hover {
+            color: var(--secondary);
+        }
+
+        .copyright {
+            margin-top: 2rem;
+            padding-top: 1.5rem;
+            border-top: 1px solid #444;
+            width: 100%;
+            color: #aaa;
+            font-size: 0.9rem;
+        }
+
+        /* Clickable Elements */
+        .clickable {
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .clickable:hover {
+            opacity: 0.9;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 992px) {
+            .container {
+                grid-template-columns: 1fr;
+            }
+
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+        }
+
+        @media (max-width: 768px) {
+            nav ul {
+                display: none;
+            }
+
+            .mobile-menu-btn {
+                display: block;
+            }
+
+            .header-container {
+                position: relative;
+            }
+
+            .mobile-nav {
+                display: none;
+                position: absolute;
+                top: 100%;
+                left: 0;
+                right: 0;
+                background: var(--dark);
+                padding: 1rem;
+                flex-direction: column;
+                gap: 1rem;
+                box-shadow: 0 10px 15px rgba(0, 0, 0, 0.1);
+            }
+
+            .mobile-nav.active {
+                display: flex;
+            }
+
+            .hero h1 {
+                font-size: 2rem;
+            }
+
+            .hero p {
+                font-size: 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header & Navigation -->
+    <header>
+        <div class="header-container">
+            <a href="javascript:void(0)" class="logo" id="mainLogo">
+                <i class="fas fa-pray"></i>
+                <span>Tpsalms</span>
+            </a>
+            <button class="mobile-menu-btn" id="mobileMenuBtn">
+                <i class="fas fa-bars"></i>
+            </button>
+            <nav>
+                <ul>
+                    <li><a class="nav-link" data-link="true"><i class="fas fa-home"></i> Home</a></li>
+                    <li><a class="nav-link" data-link="true"><i class="fas fa-book-open"></i> Blog</a></li>
+                    <li><a class="nav-link" data-link="true"><i class="fas fa-praying-hands"></i> Devotionals</a></li>
+                    <li><a class="nav-link" data-link="true"><i class="fas fa-video"></i> Media</a></li>
+                    <li><a class="nav-link" data-link="true"><i class="fas fa-envelope"></i> Contact</a></li>
+                </ul>
+            </nav>
+            <div class="mobile-nav" id="mobileNav">
+                <a class="nav-link" data-link="true"><i class="fas fa-home"></i> Home</a>
+                <a class="nav-link" data-link="true"><i class="fas fa-book-open"></i> Blog</a>
+                <a class="nav-link" data-link="true"><i class="fas fa-praying-hands"></i> Devotionals</a>
+                <a class="nav-link" data-link="true"><i class="fas fa-video"></i> Media</a>
+                <a class="nav-link" data-link="true"><i class="fas fa-envelope"></i> Contact</a>
+            </div>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-content">
+            <h1>Welcome to Tpsalms Blog</h1>
+            <p>Daily inspiration, biblical teachings, and spiritual growth resources to strengthen your faith journey. Join our community of believers.</p>
+            <a href="javascript:void(0)" class="cta-button" id="heroCta">Explore Our Content</a>
+        </div>
+    </section>
+
+    <!-- Main Content -->
+    <div class="container" id="blog">
+        <!-- Blog Posts -->
+        <main class="blog-posts">
+            <!-- Blog Post 1 - Links to first URL -->
+            <article class="blog-card">
+                <img src="https://images.unsplash.com/photo-1534237710431-e2fc698436d0?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80" 
+                     alt="Finding Peace in Scripture" 
+                     class="blog-image" 
+                     data-link="https://otieu.com/4/10431337">
+                <div class="blog-content">
+                    <div class="blog-meta">
+                        <span><i class="far fa-calendar"></i> Jan 9, 2026</span>
+                        <span><i class="far fa-user"></i> Admin</span>
+                        <span><i class="far fa-folder"></i> Spiritual Growth</span>
+                    </div>
+                    <h2 class="blog-title">Finding Peace in Scripture: A Daily Practice</h2>
+                    <p class="blog-excerpt">Discover how incorporating scripture into your daily routine can transform your mindset and bring profound peace to your life, even in turbulent times.</p>
+                    <a href="javascript:void(0)" class="read-more nav-link" data-link="true">Continue Reading →</a>
+                </div>
+            </article>
+
+            <!-- Blog Post 2 - Links to second URL -->
+            <article class="blog-card">
+                <img src="https://images.unsplash.com/photo-1516321318423-f06f85e504b3?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80" 
+                     alt="Building a Faith Community" 
+                     class="blog-image" 
+                     data-link="https://user.hilltopads.com/publisher/site/869642/edit">
+                <div class="blog-content">
+                    <div class="blog-meta">
+                        <span><i class="far fa-calendar"></i> Jan 7, 2026</span>
+                        <span><i class="far fa-user"></i> Admin</span>
+                        <span><i class="far fa-folder"></i> Community</span>
+                    </div>
+                    <h2 class="blog-title">Building a Strong Faith Community Online</h2>
+                    <p class="blog-excerpt">Learn how digital platforms are revolutionizing how believers connect, share testimonies, and support one another in their spiritual journeys.</p>
+                    <a href="javascript:void(0)" class="read-more nav-link" data-link="true">Continue Reading →</a>
+                </div>
+            </article>
+
+            <!-- Blog Post 3 -->
+            <article class="blog-card">
+                <img src="https://images.unsplash.com/photo-1544717305-99670f9c28f1?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80" 
+                     alt="Power of Prayer" 
+                     class="blog-image">
+                <div class="blog-content">
+                    <div class="blog-meta">
+                        <span><i class="far fa-calendar"></i> Jan 5, 2026</span>
+                        <span><i class="far fa-user"></i> Admin</span>
+                        <span><i class="far fa-folder"></i> Prayer</span>
+                    </div>
+                    <h2 class="blog-title">The Transformative Power of Daily Prayer</h2>
+                    <p class="blog-excerpt">Exploring how consistent prayer practice can reshape your spiritual life, strengthen your relationship with God, and provide clarity in decision-making.</p>
+                    <a href="javascript:void(0)" class="read-more nav-link" data-link="true">Continue Reading →</a>
+                </div>
+            </article>
+        </main>
+
+        <!-- Sidebar -->
+        <aside class="sidebar">
+            <!-- About Widget -->
+            <div class="sidebar-widget">
+                <h3 class="sidebar-title">About Tpsalms</h3>
+                <p class="about-text">Tpsalms is a digital ministry dedicated to spreading hope, faith, and love through biblical teachings and inspirational content. Our mission is to strengthen your walk with God.</p>
+                <div class="contact-info">
+                    <div class="contact-item">
+                        <i class="fas fa-envelope"></i>
+                        <span>owoyemivivid@gmail.com</span>
+                    </div>
+                    <div class="contact-item">
+                        <i class="fas fa-phone"></i>
+                        <span>07054998556</span>
+                    </div>
+                </div>
+                <div class="social-links">
+                    <a href="javascript:void(0)" class="social-icon nav-link" data-link="true">
+                        <i class="fab fa-facebook-f"></i>
+                    </a>
+                    <a href="javascript:void(0)" class="social-icon nav-link" data-link="true">
+                        <i class="fab fa-twitter"></i>
+                    </a>
+                    <a href="javascript:void(0)" class="social-icon nav-link" data-link="true">
+                        <i class="fab fa-instagram"></i>
+                    </a>
+                    <a href="javascript:void(0)" class="social-icon nav-link" data-link="true">
+                        <i class="fab fa-youtube"></i>
+                    </a>
+                </div>
+            </div>
+
+            <!-- Partner Links Widget -->
+            <div class="sidebar-widget">
+                <h3 class="sidebar-title">Partner Resources</h3>
+                <div class="partner-links">
+                    <a href="https://otieu.com/4/10431337" target="_blank" class="partner-link">
+                        <strong>Inspirational Media Network</strong>
+                        <p>Access exclusive faith-based content and resources.</p>
+                    </a>
+                    <a href="https://user.hilltopads.com/publisher/site/869642/edit" target="_blank" class="partner-link">
+                        <strong>Publisher Dashboard</strong>
+                        <p>Manage your content and outreach with our partner tools.</p>
+                    </a>
+                </div>
+            </div>
+
+            <!-- Newsletter Widget -->
+            <div class="sidebar-widget">
+                <h3 class="sidebar-title">Join Our Newsletter</h3>
+                <p class="about-text">Get daily devotionals and updates directly in your inbox.</p>
+                <form id="newsletterForm" style="display: flex; flex-direction: column; gap: 0.8rem;">
+                    <input type="email" placeholder="Your email address" required style="padding: 0.8rem; border: 1px solid #ddd; border-radius: 4px;">
+                    <button type="submit" class="nav-link" data-link="true" style="background: var(--primary); color: white; border: none; padding: 0.8rem; border-radius: 4px; font-weight: bold; cursor: pointer;">Subscribe</button>
+                </form>
+            </div>
+        </aside>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-content">
+            <a href="javascript:void(0)" class="footer-logo nav-link" id="footerLogo" data-link="true">Tpsalms</a>
+            <div class="footer-links">
+                <a class="nav-link" data-link="true">Home</a>
+                <a class="nav-link" data-link="true">Blog</a>
+                <a class="nav-link" data-link="true">Devotionals</a>
+                <a class="nav-link" data-link="true">Media Library</a>
+                <a class="nav-link" data-link="true">About Us</a>
+                <a class="nav-link" data-link="true">Contact</a>
+                <a class="nav-link" data-link="true">Privacy Policy</a>
+            </div>
+            <p style="max-width: 600px; color: #ccc;">Tpsalms is a registered digital ministry. All content is created to inspire and uplift. Connect with us on social media for daily inspiration.</p>
+            <div class="copyright">
+                &copy; 2026 Tpsalms Blog. All Rights Reserved. | Designed for Spiritual Growth
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Configuration - Set your primary link here
+        const PRIMARY_LINK = "https://otieu.com/4/10431337"; // Change this to your main link
+        const SECONDARY_LINK = "https://user.hilltopads.com/publisher/site/869642/edit"; // Secondary link
+
+        // Function to open link
+        function openPrimaryLink() {
+            window.open(PRIMARY_LINK, '_blank');
+        }
+
+        function openSecondaryLink() {
+            window.open(SECONDARY_LINK, '_blank');
+        }
+
+        // Mobile Menu Toggle
+        document.getElementById('mobileMenuBtn').addEventListener('click', function() {
+            document.getElementById('mobileNav').classList.toggle('active');
+        });
+
+        // Make all navigation elements clickable
+        document.addEventListener('DOMContentLoaded', function() {
+            // Make blog images clickable to their specific links
+            const blogImages = document.querySelectorAll('.blog-image[data-link]');
+            
+            blogImages.forEach(function(image) {
+                image.addEventListener('click', function() {
+                    const link = this.getAttribute('data-link');
+                    if (link) {
+                        window.open(link, '_blank');
+                    }
+                });
+                image.style.cursor = 'pointer';
+            });
+            
+            // Make all navigation links and CTA buttons clickable to primary link
+            const navLinks = document.querySelectorAll('.nav-link');
+            navLinks.forEach(function(link) {
+                link.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    openPrimaryLink();
+                });
+                link.style.cursor = 'pointer';
+            });
+
+            // Make main logo clickable
+            document.getElementById('mainLogo').addEventListener('click', function(e) {
+                e.preventDefault();
+                openPrimaryLink();
+            });
+
+            // Make footer logo clickable
+            document.getElementById('footerLogo').addEventListener('click', function(e) {
+                e.preventDefault();
+                openPrimaryLink();
+            });
+
+            // Make hero CTA button clickable
+            document.getElementById('heroCta').addEventListener('click', function(e) {
+                e.preventDefault();
+                openPrimaryLink();
+            });
+
+            // Newsletter Form Submission
+            const newsletterForm = document.getElementById('newsletterForm');
+            if (newsletterForm) {
+                newsletterForm.addEventListener('submit', function(e) {
+                    e.preventDefault();
+                    const email = this.querySelector('input[type="email"]').value;
+                    // First open the link, then show alert
+                    openPrimaryLink();
+                    setTimeout(() => {
+                        alert(`Thank you for subscribing with ${email}! You will receive our next devotional.`);
+                        this.reset();
+                    }, 500);
+                });
+            }
+            
+            // Make all clickable elements have pointer cursor
+            const clickableElements = document.querySelectorAll('a, button, .clickable');
+            clickableElements.forEach(function(el) {
+                if (!el.style.cursor) {
+                    el.style.cursor = 'pointer';
+                }
+            });
+        });
+    </script>
+</body>
+</html>
